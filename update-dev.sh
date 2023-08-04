@@ -29,7 +29,10 @@ fi
 git checkout -f dev-new
 
 ##### Uncomment to do a manual cherry-pick. Useful when there are conflicts. #####
-#exit 0
+if [ "$1" == "--manual" ]; then
+  echo "Manual cherry-pick"
+  exit 0
+fi
 
 skip_commits=[]
 for commit in $diverged_commits; do
