@@ -15,6 +15,6 @@ rsync -zarv \
   --exclude='*.so' \
   --exclude='*.a' \
   --exclude='*.os' \
-  --exclude='rlogs/*' \
+  --exclude='*.parquet' \
   . comma:/data/openpilot_dev
 ssh comma 'rm -rf /data/openpilot && ln -s /data/openpilot_dev /data/openpilot'
