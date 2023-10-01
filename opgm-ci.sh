@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+pushd ci && git pull && popd
 ./ci/update-dev.sh
 git fetch opgm dev
 git checkout -f opgm/dev
