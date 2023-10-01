@@ -7,7 +7,7 @@ ssh comma "git clone --single-branch --branch ${branch} --depth=1 https://github
 ssh comma -t "cd /data/openpilot_build && RELEASE_BRANCH=${branch} /usr/bin/bash -e -l release/build_release.sh"
 echo "Build successful"
 
-ssh comma -t "sudo reboot"
+ssh comma -t "sudo reboot" || :
 
 ## Copy all files back over
 #rm -rf build
