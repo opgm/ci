@@ -1,6 +1,7 @@
 #!/bin/bash -e
 source ci/utils.sh
 
+git fetch opgm dev
 #### Unsubmodule master ####
 git fetch origin master
 git checkout -f origin/master
