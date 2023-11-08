@@ -4,7 +4,7 @@ pushd ci && git pull && popd
 ./ci/update-dev.sh
 git fetch opgm dev
 git checkout -f opgm/dev
-build_branch="build-$(date +%Y%m%d)"
+build_branch="build-$(date -u +%Y%m%d)"
 export build_branch
 git branch -D $build_branch || :
 git switch -c $build_branch

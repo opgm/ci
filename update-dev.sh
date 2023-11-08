@@ -48,7 +48,7 @@ done
 source ci/checks.sh
 
 #### Push dev to backup branch ####
-backup_branch_name="dev-bkp-$(date +%Y-%m-%d-%H-%M-%S)"
+backup_branch_name="dev-bkp-$(date -u +%Y-%m-%d-%H-%M-%S)"
 git checkout -f dev
 git switch -c $backup_branch_name
 
