@@ -2,8 +2,9 @@
 
 ci/deploy.sh
 ssh comma << 'ENDSSH'
+  set -e
   cd /data/openpilot/panda
-  scons -j$(nproc) || exit 1
+  scons -j$(nproc)
 
   cd /data/openpilot
   python3 panda/board/flash.py
