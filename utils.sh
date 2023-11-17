@@ -1,4 +1,4 @@
-submodules="panda cereal opendbc body rednose_repo laika_repo tinygrad_repo"
+submodules="panda cereal opendbc body rednose_repo tinygrad_repo"
 
 function unsubmodule() {
   for submodule in $submodules; do
