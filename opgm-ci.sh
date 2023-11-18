@@ -15,6 +15,7 @@ source ci/checks.sh
 #git commit -am "Reinstantiate tests" --author="OPGM CI Automated"
 git push -f -u opgm $build_branch --no-verify
 ./ci/precompile.sh
+git fetch opgm $build_branch
 git push -f opgm opgm/${build_branch}:staging --no-verify
 git checkout -f dev
 # assuming everything works
