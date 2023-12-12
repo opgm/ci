@@ -2,9 +2,12 @@
 # Copy all files over to comma to build
 branch=$(git rev-parse --abbrev-ref HEAD)
 scp ci/id_rsa_github comma:/data || exit 1
-ssh comma 'rm -rf /data/openpilot /data/scons_cache /data/openpilot_build'
-ssh comma "git clone --single-branch --branch ${branch} --depth=1 https://github.com/opgm/openpilot.git /data/openpilot_build"
-ssh comma -t "cd /data/openpilot_build && RELEASE_BRANCH=${branch} /usr/bin/bash -e -l release/build_release.sh"
+ssh comma << EOF
+rm -rf /data/openpilot /data/scons_cache /data/openpilot_build
+GIT_SSH_COMMAND="ssh -i /data/id_rsa_github" git clone --single-branch --branch ${branch} --depth=1 git@github.com:opgm/openpilot.git /data/openpilot_build
+cd /data/openpilot_build
+RELEASE_BRANCH=${branch} /usr/bin/bash -e -l release/build_release.sh
+EOF
 echo "Build successful"
 
 ssh comma -t "sudo reboot" || :
