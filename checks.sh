@@ -11,6 +11,11 @@ fail_if_file_missing body/board/obj/.placeholder || exit 1
 fail_if_file_missing panda/board/obj/.placeholder || exit 1
 fail_if_file_missing selfdrive/modeld/models/supercombo.onnx || fail_if_file_missing selfdrive/modeld/models/supercombo.thneed || exit 1
 
+fail_if_file_missing README.md || exit 1
+if [ ! -s README.md ]; then
+    echo "README.md is empty"
+    exit 1
+fi
 ci/test-panda.sh || exit 1
 
 echo "All checks passed"

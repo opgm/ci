@@ -45,9 +45,8 @@ for commit in $diverged_commits; do
   git cherry-pick $commit || exit 1
 done
 
-source ci/checks.sh
-
 #### Push dev to backup branch ####
+source ci/checks.sh
 backup_branch_name="dev-bkp-$(date -u +%Y-%m-%d-%H-%M-%S)"
 git checkout -f dev
 git switch -c $backup_branch_name
