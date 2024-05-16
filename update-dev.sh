@@ -11,17 +11,30 @@ rm -rf $submodules
 git submodule init
 git submodule update
 
+git branch -D unsubmoduled || :
+git switch -c unsubmoduled
+
+unsubmodule
+git commit -am "I h8 submodules" --author="OPGM CI Automated"
+
+git fetch origin master-ci
+git checkout -f origin/master-ci
+git reset --hard origin/master-ci
+
 git branch -D dev-new || :
 git switch -c dev-new
 
-unsubmodule
+git checkout unsubmoduled panda/tests/
+git commit -am "Re-add panda tests" --author="OPGM CI Automated" --no-verify
 
-#source ci/checks.sh
+git fetch origin master
+git checkout origin/master tools
+git commit -am "Re-add tools" --author="OPGM CI Automated" --no-verify
 
-git commit -am "I h8 submodules" --author="OPGM CI Automated"
+source ci/checks.sh
 
 #### Cherry-pick dev commits onto dev-new ####
-diverged_commits=$(git log --pretty=format:"%H" --reverse origin/master..opgm/dev | tail -n +2)
+diverged_commits=$(git log --pretty=format:"%H" --reverse origin/master-ci..opgm/dev | tail -n +3)
 # fail if none detected
 if [ -z "$diverged_commits" ]; then
   echo "Error: no commits to cherry-pick"
