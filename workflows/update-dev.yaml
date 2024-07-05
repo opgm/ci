@@ -1,9 +1,14 @@
 name: Update Dev
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
+      branches:
+        - dev
   push:
+    branches:
+      - dev
 
 jobs:
   update-dev:
@@ -65,7 +70,7 @@ jobs:
         git branch -D unsubmoduled || :
         git switch -c unsubmoduled
         unsubmodule
-        git commit -am "I h8 submodules" --author="OPGM CI Automated"
+        git commit -am "I h8 submodules" --author="OPGM CI Automated <ci@opgm.cc>"
 
     - name: Prepare dev-new branch
       run: |
@@ -74,11 +79,11 @@ jobs:
         git branch -D dev-new || :
         git switch -c dev-new
         git checkout unsubmoduled panda/tests/
-        git commit -am "Re-add panda tests" --author="OPGM CI Automated" --no-verify
+        git commit -am "Re-add panda tests" --author="OPGM CI Automated <ci@opgm.cc>" --no-verify
         git checkout upstream/master tools
         git checkout upstream/master .github
         git checkout upstream/master Dockerfile.openpilot
-        git commit -am "Re-add tools" --author="OPGM CI Automated" --no-verify
+        git commit -am "Re-add tools" --author="OPGM CI Automated <ci@opgm.cc>" --no-verify
 
     - name: Cherry-pick dev commits onto dev-new
       run: |

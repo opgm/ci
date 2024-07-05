@@ -33,13 +33,13 @@ git checkout origin/master .github
 git checkout origin/master Dockerfile.openpilot
 git commit -am "Re-add tools" --author="OPGM CI Automated"
 
-source ci/checks.sh
+#source ci/checks.sh
 
 #### Cherry-pick dev commits onto dev-new ####
 commit_hash=$(git log --pretty=format:"%H %s" | grep -E 'openpilot v[0-9]+\.[0-9]+\.[0-9]+ release' | head -n 1 | cut -d ' ' -f 1)
 # Get all commit hashes after and including the found commit hash
 if [ -n "$commit_hash" ]; then
-  diverged_commits=$(git log --pretty=format:"%H" --reverse $commit_hash..origin/dev | tail -n +3)
+  diverged_commits=$(git log --pretty=format:"%H" --reverse $commit_hash..opgm/dev | tail -n +4)
   echo "Will cherry-pick the following commits:"
   for commit in $diverged_commits; do
     echo "  $commit : $(git log -1 --pretty=format:"%s" $commit)"
