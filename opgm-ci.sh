@@ -13,10 +13,10 @@ source ci/checks.sh
 #cp -r ._github .github
 #git add .github
 #git commit -am "Reinstantiate tests" --author="OPGM CI Automated"
-git push -f -u opgm $build_branch --no-verify
+git push -f -u opgm $build_branch
 ./ci/precompile.sh
 git fetch opgm $build_branch
-git push -f opgm opgm/${build_branch}:staging --no-verify
+git push -f opgm opgm/${build_branch}:staging
 git checkout -f dev
 # assuming everything works
 #ci/push-release-alert.sh
