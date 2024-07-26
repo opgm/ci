@@ -25,18 +25,30 @@ git branch -D dev-new || :
 git switch -c dev-new
 
 git checkout unsubmoduled panda/tests/
-git commit -am "Re-add panda tests" --author="OPGM CI Automated" --no-verify
+git commit -am "Re-add panda tests" --author="OPGM CI Automated"
 
 git fetch origin master
 git checkout origin/master tools
 git checkout origin/master .github
 git checkout origin/master Dockerfile.openpilot
-git commit -am "Re-add tools" --author="OPGM CI Automated" --no-verify
+git commit -am "Re-add tools" --author="OPGM CI Automated"
 
 source ci/checks.sh
 
 #### Cherry-pick dev commits onto dev-new ####
-diverged_commits=$(git log --pretty=format:"%H" --reverse origin/master-ci..opgm/dev | tail -n +3)
+commit_hash=$(git log --pretty=format:"%H %s" | grep -E 'openpilot v[0-9]+\.[0-9]+\.[0-9]+ release' | head -n 1 | cut -d ' ' -f 1)
+
+# Get all commit hashes after and including the found commit hash
+if [ -n "$commit_hash" ]; then
+  diverged_commits=$(git log --pretty=format:"%H" --reverse $commit_hash..opgm/dev | tail -n +3)
+  echo "Will cherry-pick the following commits:"
+  for commit in $diverged_commits; do
+    echo "  $commit : $(git log -1 --pretty=format:"%s" $commit)"
+  done
+else
+  echo "Commit with the message 'Initial commit' not found."
+  exit 1
+fi
 # fail if none detected
 if [ -z "$diverged_commits" ]; then
   echo "Error: no commits to cherry-pick"
@@ -56,7 +68,7 @@ for commit in $diverged_commits; do
     echo "Skipping $commit"
     continue
   fi
-  echo "Cherry-picking $commit"
+  echo "Cherry-picking $commit : $(git log -1 --pretty=format:"%s" $commit)"
   git cherry-pick $commit || exit 1
 done
 
@@ -70,4 +82,4 @@ git switch -c $backup_branch_name
 git checkout -f dev-new
 git branch -D dev
 git switch -c dev
-git push -f opgm dev --no-verify
+git push -f opgm dev
