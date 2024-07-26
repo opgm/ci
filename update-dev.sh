@@ -29,6 +29,8 @@ git commit -am "Re-add panda tests" --author="OPGM CI Automated" --no-verify
 
 git fetch origin master
 git checkout origin/master tools
+git checkout origin/master .github
+git checkout origin/master Dockerfile.openpilot
 git commit -am "Re-add tools" --author="OPGM CI Automated" --no-verify
 
 source ci/checks.sh

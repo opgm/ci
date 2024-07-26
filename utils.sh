@@ -1,4 +1,4 @@
-declare -a submodules=("panda" "msgq" "opendbc" "body" "rednose_repo" "tinygrad_repo" "teleoprtc_repo")
+declare -a submodules=("panda" "msgq_repo" "opendbc" "body" "rednose_repo" "tinygrad_repo" "teleoprtc_repo")
 
 function unsubmodule() {
   for submodule in $submodules; do
@@ -11,7 +11,4 @@ function unsubmodule() {
     git add $submodule
   done
   git rm -f .gitmodules
-  rm -rf ._github
-  mv .github ._github
-  git add ._github
 }
