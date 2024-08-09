@@ -1,4 +1,4 @@
-declare -a submodules=("panda" "msgq_repo" "opendbc" "body" "rednose_repo" "tinygrad_repo" "teleoprtc_repo")
+declare -a submodules=("panda" "msgq_repo" "opendbc_repo" "rednose_repo" "tinygrad_repo" "teleoprtc_repo")
 
 function unsubmodule() {
   for submodule in $submodules; do
