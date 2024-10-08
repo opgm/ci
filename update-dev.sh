@@ -81,4 +81,4 @@ git switch -c $backup_branch_name
 git checkout -f dev-new
 git branch -D dev
 git switch -c dev
-git push -f opgm dev
+git push -f -u opgm dev

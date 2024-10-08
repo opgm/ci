@@ -18,5 +18,6 @@ git push -f -u opgm $build_branch
 git fetch opgm $build_branch
 git push -f opgm opgm/${build_branch}:staging
 git checkout -f dev
+git branch --set-upstream-to=opgm/dev dev
 # assuming everything works
 #ci/push-release-alert.sh
