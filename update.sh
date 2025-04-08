@@ -17,3 +17,5 @@ git checkout -B master
 git add opendbc_repo
 git commit -m "Bump opendbc"
 git push --force-with-lease -u opgm master:master
+
+RELEASE_BRANCH=nightly ./ci/precompile.sh
