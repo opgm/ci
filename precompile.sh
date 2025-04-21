@@ -1,7 +1,7 @@
 #!/bin/bash -e
 if [ -z "$RELEASE_BRANCH" ]; then
-  echo "RELEASE_BRANCH is not set"
-  exit 1
+  echo "Warning: RELEASE_BRANCH is not set. Defaulting to nightly"
+  RELEASE_BRANCH="nightly"
 fi
 scp ci/id_rsa_github comma:/data || exit 1
 ssh comma << EOF
