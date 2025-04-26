@@ -33,18 +33,4 @@ if [ "$BUMP_AGNOS" -eq 1 ]; then
   exit 1
 fi
 
-# Retry precompile up to 3 times (300s timeout per attempt)
-for attempt in {1..3}; do
-  echo "Running precompile attempt $attempt..."
-  if RELEASE_BRANCH=nightly timeout 300 ./ci/precompile.sh; then
-    echo "Precompile succeeded on attempt $attempt."
-    break
-  fi
-
-  if [ "$attempt" -lt 3 ]; then
-    echo "Precompile failed (attempt $attempt). Retrying..."
-  else
-    echo "Precompile failed after 3 attempts."
-    exit 1
-  fi
-done
+RELEASE_BRANCH=${RELEASE_BRANCH:-nightly} RETRIES=3 ci/precompile.sh
