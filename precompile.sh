@@ -61,7 +61,7 @@ export PANDA_DEBUG_BUILD=1
 export RELEASE_BRANCH=${RELEASE_BRANCH}
 
 cd /data/openpilot
-git push -f origin nightly:nightly
+git push -f origin ${RELEASE_BRANCH}:${RELEASE_BRANCH}
 EOF
 then
   echo "Failed to push"
